@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="C:\Users\Administrator\Documents\GitHub\Bandela\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.0\libs\internal_impl-22.2.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="57f2ab85c164ff1676ec64dee787981c046fab79">
+        <dex dex="C:\Users\Administrator\Documents\GitHub\Bandela\app\build\intermediates\pre-dexed\debug\internal_impl-22.2.0-660745edd00398dadb39377744f10aaa9c0d879a.jar" />
+    </item>
+    <item
+        jar="C:\Users\Administrator\Documents\GitHub\Bandela\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\22.2.0\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="73753982da6bde518f3a4c6b372749981d14d1a0">
+        <dex dex="C:\Users\Administrator\Documents\GitHub\Bandela\app\build\intermediates\pre-dexed\debug\classes-47f5f768ed121b768750a05ff6afcb197924eb79.jar" />
+    </item>
+    <item
+        jar="C:\Users\Administrator\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\22.2.0\support-annotations-22.2.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="66b42a1f3eb7676070b7ef7f14b603483aecbee1">
+        <dex dex="C:\Users\Administrator\Documents\GitHub\Bandela\app\build\intermediates\pre-dexed\debug\support-annotations-22.2.0-62f443bd511c8def9f54a7e4320e8b2d110a5c37.jar" />
+    </item>
+    <item
+        jar="C:\Users\Administrator\Documents\GitHub\Bandela\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.0\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="1ee588ff2c4daf7b97c1cbf922a6c7f027285c2f">
+        <dex dex="C:\Users\Administrator\Documents\GitHub\Bandela\app\build\intermediates\pre-dexed\debug\classes-ca2207027761468fec2cea29a0b110d92d333617.jar" />
+    </item>
+
+</items>
