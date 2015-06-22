@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="gimbal">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/app/libs/gimbal.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
