@@ -17,18 +17,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
-//Below are lines of code that are related to Gimble
-    packagingOptions {
-        exclude 'META-INF/notice.txt'
-        exclude 'META-INF/license.txt'
-    }
-//This ends the lines of code that are related to Gimble
 }
 
 dependencies {
-//The line directly below this was already included in this project, but was also specifically
-//mentioned to be included by Gimble.
-    compile fileTree(dir: 'libs', include: ['*.jar']) // this adds all JARs in the libs folder
-    compile 'com.android.support:appcompat-v7:22.0.0'
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:appcompat-v7:22.2.0'
 }
