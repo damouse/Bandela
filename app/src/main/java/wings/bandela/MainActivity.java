@@ -1,5 +1,13 @@
-package wings.bandela;
+package com.example.zachary.bandelagimble;
+//Start of importing Gimbal classes
 
+import com.gimbal.android.Gimbal;
+import com.gimbal.android.PlaceManager;
+import com.gimbal.android.PlaceEventListener;
+import com.gimbal.android.Place;
+import com.gimbal.android.Visit;
+
+//End of importing Gimbal Classes
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -12,6 +20,13 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Code below is for inserting the Gimbal API Key, with gimbalApiKey as a placeholder.
+        //Gimbal.setApiKey(this.getApplication(), gimbalApiKey );
+
+
+
+
     }
 
 
