@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="gimbal-dev-logging">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/app/libs/gimbal-dev-logging.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
