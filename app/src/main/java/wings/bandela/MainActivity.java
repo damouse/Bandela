@@ -1,5 +1,13 @@
 package wings.bandela;
 
+//TESTING some Gimbal Imports
+import com.gimbal.android.Gimbal;
+import com.gimbal.android.PlaceManager;
+import com.gimbal.android.PlaceEventListener;
+import com.gimbal.android.Place;
+import com.gimbal.android.Visit;
+//TESTING complete
+
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -12,6 +20,11 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //TESTING some Gimbal code
+        Gimbal.setApiKey(this.getApplication(), "## PLACE YOUR API KEY HERE ##");
+        //TESTING complete
+
     }
 
 
