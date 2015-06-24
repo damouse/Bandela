@@ -1,20 +1,14 @@
 package wings.bandela;
 
-//TESTING some Gimbal Imports
 import com.gimbal.android.Gimbal;
-import com.gimbal.android.PlaceManager;
-import com.gimbal.android.PlaceEventListener;
-import com.gimbal.android.Place;
-import com.gimbal.android.Visit;
-//TESTING complete
 
-import android.support.v7.app.ActionBarActivity;
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

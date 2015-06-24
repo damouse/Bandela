@@ -2,32 +2,60 @@
 <items version="2" >
 
     <item
-        jar="C:\Users\Administrator\Documents\GitHub\Bandela\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.0\libs\internal_impl-22.2.0.jar"
+        jar="/Users/Damouse/Documents/projects/android/bandela/app/libs/spring-android-rest-template-1.0.1.RELEASE.jar"
         jumboMode="false"
         revision="21.1.2"
-        sha1="57f2ab85c164ff1676ec64dee787981c046fab79">
-        <dex dex="C:\Users\Administrator\Documents\GitHub\Bandela\app\build\intermediates\pre-dexed\debug\internal_impl-22.2.0-660745edd00398dadb39377744f10aaa9c0d879a.jar" />
+        sha1="e132d929bd181941f79b0d63edafb8a86ae6fd33">
+        <dex dex="/Users/Damouse/Documents/projects/android/bandela/app/build/intermediates/pre-dexed/debug/spring-android-rest-template-1.0.1.RELEASE-4e177237e479dbd2c65958c27ba4dab8aaf3f35a.jar" />
     </item>
     <item
-        jar="C:\Users\Administrator\Documents\GitHub\Bandela\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\22.2.0\classes.jar"
+        jar="/Users/Damouse/Documents/projects/android/bandela/app/libs/gimbal.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="d7ac4b59b017b30334e363675e38a64c0cbbbef6">
+        <dex dex="/Users/Damouse/Documents/projects/android/bandela/app/build/intermediates/pre-dexed/debug/gimbal-aa3acbecb4152fc8f806c2deb61888b1269e7a29.jar" />
+    </item>
+    <item
+        jar="/Users/Damouse/Documents/projects/android/bandela/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.0/classes.jar"
         jumboMode="false"
         revision="21.1.2"
         sha1="73753982da6bde518f3a4c6b372749981d14d1a0">
-        <dex dex="C:\Users\Administrator\Documents\GitHub\Bandela\app\build\intermediates\pre-dexed\debug\classes-47f5f768ed121b768750a05ff6afcb197924eb79.jar" />
+        <dex dex="/Users/Damouse/Documents/projects/android/bandela/app/build/intermediates/pre-dexed/debug/classes-716e824377a081f339dcbba7be581d98587a2073.jar" />
     </item>
     <item
-        jar="C:\Users\Administrator\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\22.2.0\support-annotations-22.2.0.jar"
+        jar="/Users/Damouse/Documents/projects/android/bandela/app/libs/spring-android-core-1.0.1.RELEASE.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="e68f0e8e4b636ee30c4de58953be38d9b72a5e3b">
+        <dex dex="/Users/Damouse/Documents/projects/android/bandela/app/build/intermediates/pre-dexed/debug/spring-android-core-1.0.1.RELEASE-836cff0f51a2c284f4a849351046c5ec69a454c3.jar" />
+    </item>
+    <item
+        jar="/Users/Damouse/Documents/projects/android/bandela/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.0/libs/internal_impl-22.2.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="57f2ab85c164ff1676ec64dee787981c046fab79">
+        <dex dex="/Users/Damouse/Documents/projects/android/bandela/app/build/intermediates/pre-dexed/debug/internal_impl-22.2.0-312d567761738c3daae4a7537a2503631d4b4380.jar" />
+    </item>
+    <item
+        jar="/Users/Damouse/Documents/libs/android-sdk-macosx/extras/android/m2repository/com/android/support/support-annotations/22.2.0/support-annotations-22.2.0.jar"
         jumboMode="false"
         revision="21.1.2"
         sha1="66b42a1f3eb7676070b7ef7f14b603483aecbee1">
-        <dex dex="C:\Users\Administrator\Documents\GitHub\Bandela\app\build\intermediates\pre-dexed\debug\support-annotations-22.2.0-62f443bd511c8def9f54a7e4320e8b2d110a5c37.jar" />
+        <dex dex="/Users/Damouse/Documents/projects/android/bandela/app/build/intermediates/pre-dexed/debug/support-annotations-22.2.0-c4eabdb1a2bdc7a8a21bbaa75ce8b2b1f49d7cdf.jar" />
     </item>
     <item
-        jar="C:\Users\Administrator\Documents\GitHub\Bandela\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.0\classes.jar"
+        jar="/Users/Damouse/Documents/projects/android/bandela/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.0/classes.jar"
         jumboMode="false"
         revision="21.1.2"
         sha1="1ee588ff2c4daf7b97c1cbf922a6c7f027285c2f">
-        <dex dex="C:\Users\Administrator\Documents\GitHub\Bandela\app\build\intermediates\pre-dexed\debug\classes-ca2207027761468fec2cea29a0b110d92d333617.jar" />
+        <dex dex="/Users/Damouse/Documents/projects/android/bandela/app/build/intermediates/pre-dexed/debug/classes-1aa4703c175c7dba05f1cd186f055c4f86385d83.jar" />
+    </item>
+    <item
+        jar="/Users/Damouse/Documents/projects/android/bandela/app/libs/gimbal-dev-logging.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="44cd8bfb75e931f3a58b15f9ae51603a33fc116c">
+        <dex dex="/Users/Damouse/Documents/projects/android/bandela/app/build/intermediates/pre-dexed/debug/gimbal-dev-logging-85f2c075894ebdbce6526805e6bd2cc3cc6961d1.jar" />
     </item>
 
 </items>
