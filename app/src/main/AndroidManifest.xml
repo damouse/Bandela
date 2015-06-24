@@ -7,16 +7,34 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@android:style/Theme.NoTitleBar" >
-
         <activity
-            android:name="MainActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name" >
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".button1"
+            android:label="@string/title_activity_button1" >
+        </activity>
+        <activity
+            android:name=".SetupGimbals"
+            android:label="@string/title_activity_setup_gimbals" >
+        </activity>
+        <activity
+            android:name=".ViewMap"
+            android:label="@string/title_activity_view_map" >
+        </activity>
+        <activity
+            android:name=".SettingAndHelp"
+            android:label="@string/title_activity_setting_and_help" >
+        </activity>
+        <activity
+            android:name=".WhereAmI"
+            android:label="@string/title_activity_where_am_i" >
         </activity>
     </application>
 

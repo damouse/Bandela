@@ -3,9 +3,13 @@ package wings.bandela;
 import com.gimbal.android.Gimbal;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 
 public class MainActivity extends Activity {
@@ -18,6 +22,43 @@ public class MainActivity extends Activity {
         //TESTING some Gimbal code
         Gimbal.setApiKey(this.getApplication(), "## PLACE YOUR API KEY HERE ##");
         //TESTING complete
+
+        final Button button1 = (Button) findViewById(R.id.button);
+        button1.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, SetupGimbals.class);
+                startActivity(intent);
+                //Once pressed on the button2 it triggers ViewHistoryActivity
+            }
+        });
+        final Button button2 = (Button) findViewById(R.id.button2);
+        button2.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ViewMap.class);
+                startActivity(intent);
+                //Once pressed on the button2 it triggers ViewHistoryActivity
+            }
+        });
+        final Button button3 = (Button) findViewById(R.id.button3);
+        button3.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, SettingAndHelp.class);
+                startActivity(intent);
+                //Once pressed on the button2 it triggers ViewHistoryActivity
+            }
+        });
+        final Button button4 = (Button) findViewById(R.id.button4);
+        button4.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, WhereAmI.class);
+                startActivity(intent);
+                //Once pressed on the button2 it triggers ViewHistoryActivity
+            }
+        });
 
     }
 
