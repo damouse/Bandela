@@ -8,4 +8,10 @@
     <string name="title_activity_view_map">ViewMap</string>
     <string name="title_activity_setting_and_help">SettingAndHelp</string>
     <string name="title_activity_where_am_i">WhereAmI</string>
+
+    <string name="about_sample_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
+        ac orci sit amet neque placerat tincidunt. Nulla sed vehicula libero. Fusce suscipit
+        malesuada elit. Etiam accumsan ligula eros, vel semper erat eleifend ac. Suspendisse in
+        augue odio. Fusce finibus eget nibh a tristique. Fusce quis risus mi. Cras fermentum,
+        mauris ut blandit luctus, lectus erat venenatis enim.</string>
 </resources>
