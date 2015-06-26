@@ -18,7 +18,8 @@
         android:theme="@android:style/Theme.NoTitleBar" >
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -27,19 +28,23 @@
         </activity>
         <activity
             android:name=".SetupGimbals"
-            android:label="@string/title_activity_setup_gimbals" >
+            android:label="@string/title_activity_setup_gimbals"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".ViewMap"
-            android:label="@string/title_activity_view_map" >
+            android:label="@string/title_activity_view_map"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".SettingAndHelp"
-            android:label="@string/title_activity_setting_and_help" >
+            android:label="@string/title_activity_setting_and_help"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".WhereAmI"
-            android:label="@string/title_activity_where_am_i" >
+            android:label="@string/title_activity_where_am_i"
+            android:screenOrientation="portrait">
         </activity>
     </application>
 
