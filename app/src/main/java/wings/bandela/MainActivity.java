@@ -1,6 +1,10 @@
 package wings.bandela;
 
+import com.gimbal.android.CommunicationManager;
 import com.gimbal.android.Gimbal;
+import com.gimbal.android.PlaceEventListener;
+import com.gimbal.android.PlaceManager;
+import com.gimbal.android.Visit;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -10,18 +14,47 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 
 public class MainActivity extends Activity {
+
+    private PlaceManager placeManager;
+    private PlaceEventListener placeEventListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        /*
+            TESTING start for Gimbal code.
+         */
+        Gimbal.setApiKey(this.getApplication(), "f987ff31e7bb866513829f4b3ea7b554"); //"## PLACE YOUR API KEY HERE ##"
 
-        //TESTING some Gimbal code
-        Gimbal.setApiKey(this.getApplication(), "## PLACE YOUR API KEY HERE ##");
-        //TESTING complete
+        placeEventListener = new PlaceEventListener() {
+            @Override
+            public void onVisitStart(Visit visit) {
+                Toast aTestingMessage = Toast.makeText(getBaseContext(), String.format("Start Visit for %s", visit.getPlace().getName()), Toast.LENGTH_LONG);
+                aTestingMessage.show();
+            }
+
+            @Override
+            public void onVisitEnd(Visit visit) {
+                Toast aTestingMessage = Toast.makeText(getBaseContext(), String.format("Start Visit for %s", visit.getPlace().getName()), Toast.LENGTH_LONG);
+                aTestingMessage.show();
+            }
+        };
+
+        placeManager = PlaceManager.getInstance();
+        placeManager.addListener(placeEventListener);
+        placeManager.startMonitoring();
+
+        CommunicationManager.getInstance().startReceivingCommunications();
+
+        /*
+            TESTING finished for Gimbal code.
+         */
+
 
         final Button button1 = (Button) findViewById(R.id.button);
         button1.setOnClickListener( new View.OnClickListener() {
