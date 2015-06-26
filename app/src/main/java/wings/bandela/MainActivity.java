@@ -23,7 +23,7 @@ public class MainActivity extends Activity {
         Gimbal.setApiKey(this.getApplication(), "## PLACE YOUR API KEY HERE ##");
         //TESTING complete
 
-        final Button button1 = (Button) findViewById(R.id.button);
+        final Button button1 = (Button) findViewById(R.id.button1);
         button1.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
