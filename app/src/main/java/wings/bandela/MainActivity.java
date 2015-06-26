@@ -27,7 +27,7 @@ public class MainActivity extends Activity {
         button1.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, SetupGimbals.class);
+                Intent intent = new Intent(MainActivity.this, WhereAmI.class);
                 startActivity(intent);
                 //Once pressed on the button2 it triggers ViewHistoryActivity
             }
@@ -45,7 +45,7 @@ public class MainActivity extends Activity {
         button3.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, SettingAndHelp.class);
+                Intent intent = new Intent(MainActivity.this, SetupGimbals.class);
                 startActivity(intent);
                 //Once pressed on the button2 it triggers ViewHistoryActivity
             }
@@ -54,7 +54,7 @@ public class MainActivity extends Activity {
         button4.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, WhereAmI.class);
+                Intent intent = new Intent(MainActivity.this, SettingAndHelp.class);
                 startActivity(intent);
                 //Once pressed on the button2 it triggers ViewHistoryActivity
             }
