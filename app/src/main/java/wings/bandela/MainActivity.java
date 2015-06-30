@@ -9,6 +9,7 @@ import com.gimbal.android.Visit;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
@@ -21,6 +22,7 @@ public class MainActivity extends Activity {
 
     private PlaceManager placeManager;
     private PlaceEventListener placeEventListener;
+    private static final String TAG = "MyActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +95,10 @@ public class MainActivity extends Activity {
             }
         });
 
+        Log.v(TAG, "222222222222222$$$$$$$$$$$$$$$");
+        Log.v(TAG, "22 onCreate called: creating database.");
+        Log.v(TAG, "222222222222222$$$$$$$$$$$$$$$");
+        System.out.print("123123");
     }
 
 
