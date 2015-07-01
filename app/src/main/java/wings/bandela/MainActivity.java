@@ -1,10 +1,27 @@
 package wings.bandela;
 
-import com.gimbal.android.CommunicationManager;
 import com.gimbal.android.Gimbal;
-import com.gimbal.android.PlaceEventListener;
+import com.gimbal.android.CommunicationManager;
+import com.gimbal.android.CommunicationListener;
+import com.gimbal.android.Communication;
+import com.gimbal.android.Push;
 import com.gimbal.android.PlaceManager;
+import com.gimbal.android.PlaceEventListener;
+import com.gimbal.android.Place;
 import com.gimbal.android.Visit;
+import com.gimbal.android.BeaconEventListener;
+import com.gimbal.android.BeaconManager;
+import com.gimbal.android.BeaconSighting;
+
+/* potentially unwanted imports. These suggested imports were found under a section
+//stating that these imports should be included if using CommunicationListener and
+//CommunicationManager instances.
+
+import java.sql.Date;
+import java.util.Collection;
+import java.util.List;
+import android.util.Log;
+*/
 
 import android.app.Activity;
 import android.content.Intent;
@@ -17,11 +34,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-
 public class MainActivity extends Activity {
 
     private PlaceManager placeManager;
     private PlaceEventListener placeEventListener;
+    private CommunicationListener communicationListener;
+    private BeaconEventListener beaconSightingListener;
+    private BeaconManager beaconManager;
     private static final String TAG = "MyActivity";
 
     @Override
@@ -51,7 +70,59 @@ public class MainActivity extends Activity {
         placeManager.addListener(placeEventListener);
         placeManager.startMonitoring();
 
+        //This code checks to see if monitoring is actually on
+        if(PlaceManager.getInstance().isMonitoring() == true)
+        {
+            Toast aTestingMessage = Toast.makeText(getBaseContext(), "Test message to indicate PlaceManager is Monitoring :)", Toast.LENGTH_LONG);
+            aTestingMessage.show();
+        }
+        else
+        {
+            Toast aTestingMessage = Toast.makeText(getBaseContext(), "Test message to indicate PlaceManager IS NOT Monitoring :(", Toast.LENGTH_LONG);
+            aTestingMessage.show();
+        }
+
+        /*
+        communicationListener = new CommunicationListener() {
+            @Override
+            public Collection<Communication> presentNotificationForCommunications(Collection<Communication> communications, Visit visit) {
+                for (Communication comm : communications) {
+                    Log.i("INFO", "Place Communication: " + visit.getPlace().getName() + ", message: " + comm.getTitle());
+                }
+                //allow Gimbal to show the notification for all communications
+                return communications;
+            }
+
+            @Override
+            public Collection<Communication> presentNotificationForCommunications(Collection<Communication> communications, Push push) {
+                for (Communication comm : communications) {
+                    Log.i("INFO", "Received a Push Communication with message: " + comm.getTitle());
+                }
+                //allow Gimbal to show the notification for all communications
+                return communications;
+            }
+
+            @Override
+            public void onNotificationClicked(List<Communication> communications) {
+                Log.i("INFO", "Notification was clicked on");
+            }
+        };
+        CommunicationManager.getInstance().addListener(communicationListener);
+        */
+
         CommunicationManager.getInstance().startReceivingCommunications();
+
+        beaconSightingListener = new BeaconEventListener() {
+            @Override
+            public void onBeaconSighting(BeaconSighting sighting) {
+                Toast aTestingMessage = Toast.makeText(getBaseContext(), "Testing message indicating onBeaconSighting method is working", Toast.LENGTH_LONG);
+                aTestingMessage.show();
+                //Log.i("INFO", sighting.toString());
+            }
+        };
+        beaconManager = new BeaconManager();
+        beaconManager.addListener(beaconSightingListener);
+        beaconManager.startListening();
 
         /*
             TESTING finished for Gimbal code.

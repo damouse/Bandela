@@ -11,6 +11,25 @@
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 
+    <service
+        android:name="com.gimbal.internal.service.GimbalService"
+        android:exported="false" >
+        <intent-filter>
+            <action android:name="wings.bandela.service.GIMBAL_SERVICE" />
+        </intent-filter>
+    </service>
+
+    <receiver
+        android:name="com.gimbal.internal.service.GimbalServiceStartStopReceiver"
+        android:enabled="true" >
+        <intent-filter>
+            <action android:name="android.intent.action.BOOT_COMPLETED" />
+        </intent-filter>
+        <intent-filter>
+            <action android:name="android.intent.action.ACTION_SHUTDOWN" />
+        </intent-filter>
+    </receiver>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
