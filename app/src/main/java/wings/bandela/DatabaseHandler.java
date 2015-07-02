@@ -11,46 +11,35 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Mike Feilbach on 3/21/2015.
- * Handles the app's database. Offers methods to add/query/delete records
- * from the database's different tables. Acts as an abstraction of the SQLite
- * database.
+ * Created by Zheng Zheng on 06/29/2015
+ *  used to preserve position info and Gimbal beacons infos.
+ *  and operates on the database:
+ *  add Gimbals to GimbalTable or add Place to PlaceTable
+ *  clear all entry in GimbalTable or PlaceTable
  */
 public class DatabaseHandler extends SQLiteOpenHelper
 {
-    // For tagging messages in Log Cat.
-    private static final String TAG = "MyActivity";
+    private static final String TAG = "Bandela";
+    //TAG used to output infos to logcat
 
-    //*************************************************************************
-    // Database attributes.
-    //*************************************************************************
     private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "liftLogDatabase";
+    private static final String DATABASE_NAME = "GimbalDatabase";
+    //database name
 
-    //*************************************************************************
-    // Bubble table attributes.
-    //*************************************************************************
+    private static final String TABLE_GIMBALS = "gimbals";
+    private static final String TABLE_PLACE = "places";
+    //table name
 
-    // Name of Bubble table within the database.
-    private static final String TABLE_GIMBALS = "bubbles";
+    public static final String COLUMN_GIMBAL_ID = "gimbalId";
+    public static final String COLUMN_GIMBAL_CONTENT = "gimbalContent";
+    public static final String COLUMN_GIMBAL_TYPE = "gimbalType";
+    //Gimbal table attribute name
 
-    // Columns in the Bubble table.
-    public static final String COLUMN_GIMBAL_ID = "bubbleId";
-    public static final String COLUMN_GIMBAL_CONTENT = "bubbleContent";
-    public static final String COLUMN_GIMBAL_TYPE = "bubbleType";
-
-    //*************************************************************************
-    // WorkoutLog table attributes.
-    //*************************************************************************
-
-    // Name of the WorkoutLog table within the database.
-    private static final String TABLE_PLACE = "workoutLogs";
-
-    // Columns in the WorkoutLog table.
-    public static final String COLUMN_PLACE_ID = "logId";
-    public static final String COLUMN_PLACE_TITLE = "logTitle";
-    public static final String COLUMN_PLACE_BODY = "logBody";
-    public static final String COLUMN_PLACE_DATE_SEC = "logDateSeconds";
+    public static final String COLUMN_PLACE_ID = "placeId";
+    public static final String COLUMN_PLACE_TITLE = "placeTitle";
+    public static final String COLUMN_PLACE_BODY = "placeBody";
+    public static final String COLUMN_PLACE_DATE_SEC = "placeDateSeconds";
+    //Place table attribute name
 
     /**
      * Default constructor.
@@ -70,14 +59,14 @@ public class DatabaseHandler extends SQLiteOpenHelper
         Log.v(TAG, "233$$ onCreate called: creating database.");
         Log.v(TAG, "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
 
-        // The Bubble table.
+        // creating Gimbal table SQLite query.
         String CREATE_GIMBAL_TABLE = "CREATE TABLE " +
                 TABLE_GIMBALS + "("
                 + COLUMN_GIMBAL_ID + " INTEGER PRIMARY KEY,"
                 + COLUMN_GIMBAL_CONTENT + " TEXT,"
                 + COLUMN_GIMBAL_TYPE + " INTEGER)";
 
-        // The Log table.
+        // creating place table SQLite query.
         String CREATE_PLACE_TABLE = "CREATE TABLE " +
                 TABLE_PLACE + "("
                 + COLUMN_PLACE_ID + " INTEGER PRIMARY KEY,"
@@ -85,16 +74,19 @@ public class DatabaseHandler extends SQLiteOpenHelper
                 + COLUMN_PLACE_BODY + " TEXT,"
                 + COLUMN_PLACE_DATE_SEC + " INTEGER)";
 
+
+
         // All tables are created when database is initialized.
         db.execSQL(CREATE_GIMBAL_TABLE);
         db.execSQL(CREATE_PLACE_TABLE);
+        Log.v(TAG, "****** START: Creating sample Gimbals.");
 
-        Log.v(TAG, "****** START: Creating sample Bubbles.");
-
-
-        Log.v(TAG, "****** END: Creating sample Bubbles.");
+        Log.v(TAG, "****** END: Creating sample Gimbals.");
+        //
     }
 
+
+    //sending message to logcat
 
     //*************************************************************************
     // The onUpgrade() method is called when the handler is invoked with a
@@ -139,5 +131,55 @@ public class DatabaseHandler extends SQLiteOpenHelper
     }
 
 
+    private void addGimbal(SQLiteDatabase db)
+    {
+        // Create key-value pairs for the columns in the Gimbal table.
+        ContentValues values = new ContentValues();
 
+
+        // Gimbal content field.
+        values.put(COLUMN_GIMBAL_CONTENT, "test123");
+
+        // Gimbal type field.
+        values.put(COLUMN_GIMBAL_TYPE, 3);
+
+        // Insert new row (Gimbal) into the Gimbal table. If it fails,
+        // we will return false.
+        if (db.insert(TABLE_GIMBALS, null, values) == -1)
+        {
+            Log.v(TAG, "****** Insert of sample Gimbal failed.");
+        }
+    }
+    public boolean deleteAllGimbals(){
+        // Get a reference of our database.
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        // Delete all records from Gimbal table.
+        db.execSQL("DELETE FROM " + TABLE_GIMBALS);
+
+        return true;
+    }
+    public int getGimbalTableSize()
+    {
+        // Get a reference to our database.
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        // Query to select all rows of Gimbal table.
+        String query = "Select * FROM " + TABLE_GIMBALS;
+
+        Cursor cursor = db.rawQuery(query, null);
+        int cnt=0;
+        // Loop through all rows, adding Gimbals to our list as we go.
+        if (cursor.moveToFirst()){
+            do{
+                cnt++;
+            }while (cursor.moveToNext());
+        }
+
+        // Close out database and cursor.
+        db.close();
+        cursor.close();
+
+        return cnt;
+    }
 }

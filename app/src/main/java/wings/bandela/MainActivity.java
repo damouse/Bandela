@@ -169,7 +169,13 @@ public class MainActivity extends Activity {
         Log.v(TAG, "222222222222222$$$$$$$$$$$$$$$");
         Log.v(TAG, "22 onCreate called: creating database.");
         Log.v(TAG, "222222222222222$$$$$$$$$$$$$$$");
-        System.out.print("123123");
+        databaseTest dbTest = new databaseTest(this);
+        dbTest.startTest();
+
+
+
+
+
     }
 
 
