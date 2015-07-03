@@ -111,6 +111,7 @@ public class gimbalHelper {
         }
     }
 
+
     public void addBeacon(Beacon specificBeacon, String beaconSightingMessage)
     {
         //Here we add every message, the beacon, and the place to their respective vectors.
