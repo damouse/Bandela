@@ -13,6 +13,9 @@ import com.gimbal.android.BeaconEventListener;
 import com.gimbal.android.BeaconManager;
 import com.gimbal.android.BeaconSighting;
 
+import com.gimbal.proximity.ProximityListener;
+import com.gimbal.proximity.ProximityOptions;
+
 /* potentially unwanted imports. These suggested imports were found under a section
 //stating that these imports should be included if using CommunicationListener and
 //CommunicationManager instances.
@@ -51,6 +54,14 @@ public class MainActivity extends Activity {
             TESTING start for Gimbal code.
          */
         Gimbal.setApiKey(this.getApplication(), "41238e20-69b3-48f7-b5b5-9648d9ba4dfb"); //"## PLACE YOUR API KEY HERE ##"
+
+        //Proximity testing code
+        serviceStarted();
+
+
+
+
+
 
         placeEventListener = new PlaceEventListener() {
             @Override
@@ -176,6 +187,21 @@ public class MainActivity extends Activity {
 
 
 
+    }
+
+    void serviceStarted()
+    {
+        Toast aTestingMessage = Toast.makeText(getBaseContext(), "Testing message stating that the proximity service has started.", Toast.LENGTH_LONG);
+        aTestingMessage.show();
+        // this will be invoked if the service has successfully started
+        // bluetooth scanning will be started at this point
+    }
+
+    void serviceFailed(int errorCode, String message)
+    {
+        // this will be called if the service has failed to start
+        Toast aTestingMessage = Toast.makeText(getBaseContext(), "Testing message stating that the proximity service has failed.", Toast.LENGTH_LONG);
+        aTestingMessage.show();
     }
 
 

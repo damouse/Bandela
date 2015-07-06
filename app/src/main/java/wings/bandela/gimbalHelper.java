@@ -26,6 +26,7 @@ public class gimbalHelper {
     Vector<String> specificBeaconMessages = new Vector<String>(5);
     Vector<Place> specificPlaces = new Vector<Place>(5);
     Vector<Beacon> specificBeacons = new Vector<Beacon>(5);
+    Vector<Integer> beaconStrength = new Vector<Integer>(5);
 
     PlaceEventListener placeEventListener;
     PlaceManager placeManager;
@@ -37,15 +38,10 @@ public class gimbalHelper {
 
     }
 
-    public void addPlace(String onVisitStartMessage, String onVisitEndMessage, Place specificPlace) //String beaconSightingMessage    Beacon specificBeacon
+    //This is a method that is supposed to be used inside the addPlace and removePlace methods. It creates a placeEventListener and goes through the
+    //place vector, visit start message vector, and the visit end message vector to create where specific greetings and farewells happen.
+    public void setupPlaces()
     {
-        //Here we add every message, the beacon, and the place to their respective vectors.
-        specificOnVisitStartMessages.add(onVisitStartMessage);
-        specificOnVisitEndMessages.add(onVisitEndMessage);
-        //specificBeaconMessages.add(beaconSightingMessage);
-        specificPlaces.add(specificPlace);
-        //specificBeacons.add(specificBeacon);
-
         //Here we create the methods used to detect beacons and places, and then display the correct message.
         placeEventListener = new PlaceEventListener() {
             @Override
@@ -56,8 +52,8 @@ public class gimbalHelper {
                 {
                     if(visit.getPlace() == specificPlaces.get(i))
                     {
-                        Toast aTestingMessage = Toast.makeText(getBaseContext(), specificOnVisitStartMessages.get(i), Toast.LENGTH_LONG);
-                        aTestingMessage.show();
+                        //Toast aTestingMessage = Toast.makeText(getBaseContext(), specificOnVisitStartMessages.get(i), Toast.LENGTH_LONG);
+                        //aTestingMessage.show();
                     }
                 }
             }
@@ -70,8 +66,8 @@ public class gimbalHelper {
                 {
                     if(visit.getPlace() == specificPlaces.get(i))
                     {
-                        Toast aTestingMessage = Toast.makeText(getBaseContext(), specificOnVisitEndMessages.get(i), Toast.LENGTH_LONG);
-                        aTestingMessage.show();
+                        //Toast aTestingMessage = Toast.makeText(getBaseContext(), specificOnVisitEndMessages.get(i), Toast.LENGTH_LONG);
+                        //aTestingMessage.show();
                     }
                 }
             }
@@ -93,6 +89,20 @@ public class gimbalHelper {
         placeManager.startMonitoring();
         //PlaceManager.getInstance().addListener(placeEventListener);
     }
+
+    public void addPlace(String onVisitStartMessage, String onVisitEndMessage, Place specificPlace) //String beaconSightingMessage    Beacon specificBeacon
+    {
+        //Here we add every message, the beacon, and the place to their respective vectors.
+        specificOnVisitStartMessages.add(onVisitStartMessage);
+        specificOnVisitEndMessages.add(onVisitEndMessage);
+        //specificBeaconMessages.add(beaconSightingMessage);
+        specificPlaces.add(specificPlace);
+        //specificBeacons.add(specificBeacon);
+
+        //Here we call our updating method, which will finalize the addition of the specific place.
+        setupPlaces();
+    }
+
     //This method allows us to remove a place or beacon if we decide we no longer want it.
     public void removePlace(String placeName)
     {
@@ -109,15 +119,14 @@ public class gimbalHelper {
                 //specificBeacons.remove(i);
             }
         }
+        //Here we call our updating method, which will finalize the removal of the specific place.
+        setupPlaces();
     }
 
-
-    public void addBeacon(Beacon specificBeacon, String beaconSightingMessage)
+    //This is a method that is supposed to be used inside the addBeacon and removeBeacon methods. It creates a beaconEventListener and goes through the
+    //beacon vector, and the beacon message vector to create what happens when someone gets within the distance of a beacon.
+    public void setupBeacons()
     {
-        //Here we add every message, the beacon, and the place to their respective vectors.
-        specificBeacons.add(specificBeacon);
-        specificBeaconMessages.add(beaconSightingMessage);
-
         //Here we create our method to do something when the app detects a beacon for every beacon we have currently added.
         beaconEventListener = new BeaconEventListener() {
             @Override
@@ -126,8 +135,11 @@ public class gimbalHelper {
                 {
                     if(beaconSighting.getBeacon().getName().equals(specificBeacons.get(i).getName()))
                     {
-                        Toast aTestingMessage = Toast.makeText(getBaseContext(), specificBeaconMessages.get(i), Toast.LENGTH_LONG);
-                        aTestingMessage.show();
+                        //Toast aTestingMessage = Toast.makeText(getBaseContext(), specificBeaconMessages.get(i), Toast.LENGTH_LONG);
+                        //aTestingMessage.show();
+
+                        //This code records the strength of the beacon which it is interacting with in a separate vector.
+                        beaconStrength.set(i, beaconSighting.getRSSI());
                     }
                 }
 
@@ -137,18 +149,45 @@ public class gimbalHelper {
         beaconManager.startListening();
     }
 
+
+    public void addBeacon(Beacon specificBeacon, String beaconSightingMessage)
+    {
+        //Here we add every message, the beacon, and the place to their respective vectors.
+        specificBeacons.add(specificBeacon);
+        specificBeaconMessages.add(beaconSightingMessage);
+        //Here we call our updating method, which will finalize the addition of the beacon.
+        setupBeacons();
+    }
+
     public void removeBeacon(String beaconName)
     {
         //Here we scour the beacon vector for a beacon representing the parameter name.
-        for(int i = 0; i < specificPlaces.size(); i++)
+        for(int i = 0; i < specificBeacons.size(); i++)
         {
-            if(specificBeacons.get(i).getName().equals(beaconName)) //|| specificBeacons.get(i).getName().equals(placeOrBeaconName)
+            if(specificBeacons.get(i).getName().equals(beaconName))
             {
                 //We remove everything that has to deal with that place or beacon.
                 specificBeaconMessages.remove(i);
                 specificBeacons.remove(i);
             }
         }
+        //Here we call our updating method, which will finalize the removal of the beacon.
+        setupBeacons();
+    }
+
+    public int getBeaconStrength(String beaconName)
+    {
+        int signalStrength = 1;
+        //Here we scour the beacon vector for a beacon representing the parameter name.
+        for(int i = 0; i < specificBeacons.size(); i++)
+        {
+            if(specificBeacons.get(i).getName().equals(beaconName))
+            {
+                //We return the signal strength, which can be found in the beaconStrength vector.
+                signalStrength = beaconStrength.get(i);
+            }
+        }
+        return signalStrength;
     }
 
 
