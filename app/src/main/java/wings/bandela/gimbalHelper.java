@@ -38,58 +38,11 @@ public class gimbalHelper {
 
     }
 
-    //This is a method that is supposed to be used inside the addPlace and removePlace methods. It creates a placeEventListener and goes through the
-    //place vector, visit start message vector, and the visit end message vector to create where specific greetings and farewells happen.
-    public void setupPlaces()
-    {
-        //Here we create the methods used to detect beacons and places, and then display the correct message.
-        placeEventListener = new PlaceEventListener() {
-            @Override
-            public void onVisitStart(Visit visit) {
-                // This will be invoked when a place is entered. Example below shows a simple log upon enter
-                //Log.i("Info:", "Enter: " + visit.getPlace().getName() + ", at: " + new Date(visit.getArrivalTimeInMillis()));
-                for(int i = 0; i < specificOnVisitStartMessages.size(); i++)
-                {
-                    if(visit.getPlace() == specificPlaces.get(i))
-                    {
-                        //Toast aTestingMessage = Toast.makeText(getBaseContext(), specificOnVisitStartMessages.get(i), Toast.LENGTH_LONG);
-                        //aTestingMessage.show();
-                    }
-                }
-            }
-
-            @Override
-            public void onVisitEnd(Visit visit) {
-                // This will be invoked when a place is exited. Example below shows a simple log upon exit
-                //Log.i("Info:", "Exit: " + visit.getPlace().getName() + ", at: " + new Date(visit.getDepartureTimeInMillis()));
-                for(int i = 0; i < specificOnVisitEndMessages.size(); i++)
-                {
-                    if(visit.getPlace() == specificPlaces.get(i))
-                    {
-                        //Toast aTestingMessage = Toast.makeText(getBaseContext(), specificOnVisitEndMessages.get(i), Toast.LENGTH_LONG);
-                        //aTestingMessage.show();
-                    }
-                }
-            }
-            /*
-            public void onBeaconSighting(BeaconSighting sighting, List<Visit> visits) {
-                // This will be invoked when a beacon assigned to a place within a current visit is sighted.
-                for(int i = 0; i < specificBeacons.size(); i++)
-                {
-                    if(sighting.getBeacon().getName().equals(specificBeacons.get(i).getName()))
-                    {
-                        Toast aTestingMessage = Toast.makeText(getBaseContext(), specificBeaconMessages.get(i), Toast.LENGTH_LONG);
-                        aTestingMessage.show();
-                    }
-                }
-            }
-            */
-        };
-        placeManager.addListener(placeEventListener);
-        placeManager.startMonitoring();
-        //PlaceManager.getInstance().addListener(placeEventListener);
-    }
-
+    /*
+    //This method adds a place to be monitored. This should be used in conjunction with the Gimbal Manager on the web. When you add a place, you
+    //will have to include what message should be presented to the app user when they arrive at this place, what message should be presented when
+    //the app user leaves the place, and also what that place name is.
+     */
     public void addPlace(String onVisitStartMessage, String onVisitEndMessage, Place specificPlace) //String beaconSightingMessage    Beacon specificBeacon
     {
         //Here we add every message, the beacon, and the place to their respective vectors.
@@ -123,31 +76,17 @@ public class gimbalHelper {
         setupPlaces();
     }
 
-    //This is a method that is supposed to be used inside the addBeacon and removeBeacon methods. It creates a beaconEventListener and goes through the
-    //beacon vector, and the beacon message vector to create what happens when someone gets within the distance of a beacon.
-    public void setupBeacons()
-    {
-        //Here we create our method to do something when the app detects a beacon for every beacon we have currently added.
-        beaconEventListener = new BeaconEventListener() {
-            @Override
-            public void onBeaconSighting(BeaconSighting beaconSighting) {
-                for(int i = 0; i < specificBeacons.size(); i++)
-                {
-                    if(beaconSighting.getBeacon().getName().equals(specificBeacons.get(i).getName()))
-                    {
-                        //Toast aTestingMessage = Toast.makeText(getBaseContext(), specificBeaconMessages.get(i), Toast.LENGTH_LONG);
-                        //aTestingMessage.show();
 
-                        //This code records the strength of the beacon which it is interacting with in a separate vector.
-                        beaconStrength.set(i, beaconSighting.getRSSI());
-                    }
-                }
 
-            }
-        };
-        beaconManager.addListener(beaconEventListener);
-        beaconManager.startListening();
-    }
+
+
+    /*
+    //Below are beacon specific methods.
+     */
+
+
+
+
 
 
     public void addBeacon(Beacon specificBeacon, String beaconSightingMessage)
@@ -188,6 +127,137 @@ public class gimbalHelper {
             }
         }
         return signalStrength;
+    }
+
+    public String  getBeaconBatteryLevel(String beaconName)
+    {
+        String batteryLevel = "";
+        //Here we scour the beacon vector for a beacon representing the parameter name.
+        for(int i = 0; i < specificBeacons.size(); i++)
+        {
+            if(specificBeacons.get(i).getName().equals(beaconName))
+            {
+                //This code may or may not work. If it works, it will return the value of the battery level in a string format. The available
+                //options should only be HIGH, MEDIUM_HIGH, MEDIUM_LOW, and LOW.
+                batteryLevel = String.valueOf(specificBeacons.get(i).getBatteryLevel());
+            }
+        }
+        return batteryLevel;
+    }
+
+    public int getBeaconTemperature(String beaconName)
+    {
+        int temperature = 1;
+        //Here we scour the beacon vector for a beacon representing the parameter name.
+        for(int i = 0; i < specificBeacons.size(); i++)
+        {
+            if(specificBeacons.get(i).getName().equals(beaconName))
+            {
+                //We return the signal strength, which can be found in the beaconStrength vector.
+                temperature = specificBeacons.get(i).getTemperature();
+            }
+        }
+        return temperature;
+    }
+
+
+
+
+
+    /*
+    //Below are methods that are used inside other methods above.
+     */
+
+
+
+
+
+    //This is a method that is supposed to be used inside the addPlace and removePlace methods. It creates a placeEventListener and goes through the
+    //place vector, visit start message vector, and the visit end message vector to create where specific greetings and farewells happen. It also immediately
+    //starts monitoring for any users that enter and exit the place perimeter. There are 3 variables that will detect the arrival time, departure time, and how
+    //long someone spent in a spot. I am assuming that we will be logging these times, so keeping the variables hold their value for more than a second
+    //I do not believe will be necessary, and is therefore ok that they be constantly overwritten when an app user enters and leaves another place.
+    public void setupPlaces()
+    {
+        //Here we create the methods used to detect beacons and places, and then display the correct message.
+        placeEventListener = new PlaceEventListener() {
+            long visitStartTime = 0;
+            long visitEndTime = 0;
+            long visitDwellTime = 0;
+            @Override
+            public void onVisitStart(Visit visit) {
+                // This will be invoked when a place is entered. Example below shows a simple log upon enter
+                //Log.i("Info:", "Enter: " + visit.getPlace().getName() + ", at: " + new Date(visit.getArrivalTimeInMillis()));
+                for(int i = 0; i < specificOnVisitStartMessages.size(); i++)
+                {
+                    if(visit.getPlace() == specificPlaces.get(i))
+                    {
+                        //Toast aTestingMessage = Toast.makeText(getBaseContext(), specificOnVisitStartMessages.get(i), Toast.LENGTH_LONG);
+                        //aTestingMessage.show();
+                        visitStartTime = visit.getArrivalTimeInMillis();
+                    }
+                }
+            }
+
+            @Override
+            public void onVisitEnd(Visit visit) {
+                // This will be invoked when a place is exited. Example below shows a simple log upon exit
+                //Log.i("Info:", "Exit: " + visit.getPlace().getName() + ", at: " + new Date(visit.getDepartureTimeInMillis()));
+                for(int i = 0; i < specificOnVisitEndMessages.size(); i++)
+                {
+                    if(visit.getPlace() == specificPlaces.get(i))
+                    {
+                        //Toast aTestingMessage = Toast.makeText(getBaseContext(), specificOnVisitEndMessages.get(i), Toast.LENGTH_LONG);
+                        //aTestingMessage.show();
+                        visitEndTime = visit.getDepartureTimeInMillis();
+                        visitDwellTime = visit.getDwellTimeInMillis();
+                    }
+                }
+            }
+            /*
+            public void onBeaconSighting(BeaconSighting sighting, List<Visit> visits) {
+                // This will be invoked when a beacon assigned to a place within a current visit is sighted.
+                for(int i = 0; i < specificBeacons.size(); i++)
+                {
+                    if(sighting.getBeacon().getName().equals(specificBeacons.get(i).getName()))
+                    {
+                        Toast aTestingMessage = Toast.makeText(getBaseContext(), specificBeaconMessages.get(i), Toast.LENGTH_LONG);
+                        aTestingMessage.show();
+                    }
+                }
+            }
+            */
+        };
+        placeManager.addListener(placeEventListener);
+        placeManager.startMonitoring();
+        //PlaceManager.getInstance().addListener(placeEventListener);
+    }
+
+    //This is a method that is supposed to be used inside the addBeacon and removeBeacon methods. It creates a beaconEventListener and goes through the
+    //beacon vector, and the beacon message vector to create what happens when someone gets within the distance of a beacon. It also immediately
+    //starts monitoring for any users that get within range of the beacons.
+    public void setupBeacons()
+    {
+        //Here we create our method to do something when the app detects a beacon for every beacon we have currently added.
+        beaconEventListener = new BeaconEventListener() {
+            @Override
+            public void onBeaconSighting(BeaconSighting beaconSighting) {
+                for(int i = 0; i < specificBeacons.size(); i++)
+                {
+                    if(beaconSighting.getBeacon().getName().equals(specificBeacons.get(i).getName()))
+                    {
+                        //Toast aTestingMessage = Toast.makeText(getBaseContext(), specificBeaconMessages.get(i), Toast.LENGTH_LONG);
+                        //aTestingMessage.show();
+
+                        //This code records the strength of the beacon which it is interacting with in a separate vector.
+                        beaconStrength.set(i, beaconSighting.getRSSI());
+                    }
+                }
+
+            }
+        };
+        beaconManager.addListener(beaconEventListener);
+        beaconManager.startListening();
     }
 
 
