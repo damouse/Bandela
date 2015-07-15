@@ -58,11 +58,9 @@ public class MainActivity extends Activity {
         //Proximity testing code
         serviceStarted();
 
-
-
-
-
-
+        /*
+        Start of first gimbal testing code.
+         */
         placeEventListener = new PlaceEventListener() {
             @Override
             public void onVisitStart(Visit visit) {
@@ -134,6 +132,17 @@ public class MainActivity extends Activity {
         beaconManager = new BeaconManager();
         beaconManager.addListener(beaconSightingListener);
         beaconManager.startListening();
+
+        /*
+        End of first gimbal testing code
+         */
+        /*
+        Start of gimbal testing code that uses the gimbalHelper class.
+         */
+        gimbalHelper theGimbalHelper = new gimbalHelper();
+        theGimbalHelper.addBeacon("beacon 1", "You have detected the beacon : beacon 1");
+        theGimbalHelper.addBeacon("beacon 2", "You have detected the beacon : beacon 2");
+        theGimbalHelper.addPlace("You have entered the place \"beacon 1\"!", "You have left the place \"beacon 1\"!", "beacon 1");
 
         /*
             TESTING finished for Gimbal code.
