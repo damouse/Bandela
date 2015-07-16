@@ -1,5 +1,6 @@
 package wings.bandela;
 
+import android.app.Activity;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
@@ -12,7 +13,7 @@ import com.gimbal.android.PlaceManager;
 import com.gimbal.android.Visit;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends Activity {
 
     private PlaceManager placeManager;
     private PlaceEventListener placeEventListener;
