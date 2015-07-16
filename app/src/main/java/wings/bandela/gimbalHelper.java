@@ -1,5 +1,6 @@
 package wings.bandela;
 
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gimbal.android.Beacon;
@@ -25,6 +26,7 @@ public class gimbalHelper {
     Vector<String> specificBeaconNames = new Vector<String>(5);
     Vector<Beacon> specificBeacons = new Vector<Beacon>(5);
     Vector<Integer> beaconStrength = new Vector<Integer>(5);
+    TextView theTextView;
 
     PlaceEventListener placeEventListener;
     //PlaceManager does not have a constructor like how BeaconManager does.
@@ -32,9 +34,9 @@ public class gimbalHelper {
     BeaconEventListener beaconEventListener;
     BeaconManager beaconManager = new BeaconManager();
 
-    public gimbalHelper()
+    public gimbalHelper(TextView aTextView)
     {
-
+        theTextView = aTextView;
     }
 
     /*
@@ -91,6 +93,7 @@ public class gimbalHelper {
 
     public void addBeacon(String specificBeaconName, String beaconSightingMessage)
     {
+        theTextView.setText("Hello! The text was successfully changed!");
         //Here we add every message, the beacon, and the place to their respective vectors.
         specificBeaconNames.add(specificBeaconName);
         specificBeaconMessages.add(beaconSightingMessage);
@@ -264,11 +267,12 @@ public class gimbalHelper {
                 {
                     if(beaconSighting.getBeacon().getName().equals(specificBeaconNames.get(i)))
                     {
-                        //Toast aTestingMessage = Toast.makeText(getBaseContext(), specificBeaconMessages.get(i), Toast.LENGTH_LONG);
+                        //Toast aTestingMessage = Toast.makeText(MainActivity.getBaseContext(), specificBeaconMessages.get(i), Toast.LENGTH_LONG);
                         //aTestingMessage.show();
 
                         //This code records the strength of the beacon which it is interacting with in a separate vector.
                         beaconStrength.set(i, beaconSighting.getRSSI());
+                        theTextView.setText(beaconSighting.getRSSI());
                         //We also record the beacon's info if it's not already stored in the beacon vector.
                         if(specificBeacons.get(i) == null)
                         {
