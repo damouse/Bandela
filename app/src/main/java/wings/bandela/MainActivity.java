@@ -12,7 +12,8 @@ import com.gimbal.android.Visit;
 import com.gimbal.android.BeaconEventListener;
 import com.gimbal.android.BeaconManager;
 import com.gimbal.android.BeaconSighting;
-
+import com.gimbal.android.BeaconSighting;
+import com.gimbal.android.BeaconManager;
 import com.gimbal.proximity.ProximityListener;
 import com.gimbal.proximity.ProximityOptions;
 
@@ -34,7 +35,9 @@ import android.view.Menu;
 import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
@@ -43,8 +46,13 @@ public class MainActivity extends Activity {
     private PlaceEventListener placeEventListener;
     private CommunicationListener communicationListener;
     private BeaconEventListener beaconSightingListener;
-    private BeaconManager beaconManager;
     private static final String TAG = "MyActivity";
+
+    private ArrayAdapter<String> listAdapter;
+    private ListView listView;
+
+    private BeaconEventListener beaconEventListener;
+    private BeaconManager beaconManager = new BeaconManager();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,37 +99,9 @@ public class MainActivity extends Activity {
             aTestingMessage.show();
         }
 
-        /*
-        communicationListener = new CommunicationListener() {
-            @Override
-            public Collection<Communication> presentNotificationForCommunications(Collection<Communication> communications, Visit visit) {
-                for (Communication comm : communications) {
-                    Log.i("INFO", "Place Communication: " + visit.getPlace().getName() + ", message: " + comm.getTitle());
-                }
-                //allow Gimbal to show the notification for all communications
-                return communications;
-            }
-
-            @Override
-            public Collection<Communication> presentNotificationForCommunications(Collection<Communication> communications, Push push) {
-                for (Communication comm : communications) {
-                    Log.i("INFO", "Received a Push Communication with message: " + comm.getTitle());
-                }
-                //allow Gimbal to show the notification for all communications
-                return communications;
-            }
-
-            @Override
-            public void onNotificationClicked(List<Communication> communications) {
-                Log.i("INFO", "Notification was clicked on");
-            }
-        };
-        CommunicationManager.getInstance().addListener(communicationListener);
-        */
-
         CommunicationManager.getInstance().startReceivingCommunications();
 
-        beaconSightingListener = new BeaconEventListener() {
+        beaconSightingListener = new BeaconEventListener(){
             @Override
             public void onBeaconSighting(BeaconSighting sighting) {
                 Toast aTestingMessage = Toast.makeText(getBaseContext(), "Testing message indicating onBeaconSighting method is working", Toast.LENGTH_LONG);
@@ -133,105 +113,66 @@ public class MainActivity extends Activity {
         beaconManager.addListener(beaconSightingListener);
         beaconManager.startListening();
 
-        /*
-        End of first gimbal testing code
-         */
-        /*
-        Start of gimbal testing code that uses the gimbalHelper class.
-         */
-        //gimbalHelper theGimbalHelper = new gimbalHelper();
-        //theGimbalHelper.addBeacon("beacon 1", "You have detected the beacon : beacon 1");
-        //theGimbalHelper.addBeacon("beacon 2", "You have detected the beacon : beacon 2");
-        //theGimbalHelper.addPlace("You have entered the place \"beacon 1\"!", "You have left the place \"beacon 1\"!", "beacon 1");
-        /*
-            TESTING finished for Gimbal code.
-         */
+        //create buttons in main activity
 
-
+        /* Commenting out buttons /*
         final Button button1 = (Button) findViewById(R.id.button1);
-        button1.setOnClickListener( new View.OnClickListener() {
+        button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, WhereAmI.class);
                 startActivity(intent);
-                //Once pressed on the button2 it triggers ViewHistoryActivity
             }
         });
         final Button button2 = (Button) findViewById(R.id.button2);
-        button2.setOnClickListener( new View.OnClickListener() {
+        button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, ViewMap.class);
                 startActivity(intent);
-                //Once pressed on the button2 it triggers ViewHistoryActivity
             }
         });
         final Button button3 = (Button) findViewById(R.id.button3);
-        button3.setOnClickListener( new View.OnClickListener() {
+        button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, SetupGimbals.class);
                 startActivity(intent);
-                //Once pressed on the button2 it triggers ViewHistoryActivity
             }
         });
         final Button button4 = (Button) findViewById(R.id.button4);
-        button4.setOnClickListener( new View.OnClickListener() {
+        button4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, SettingAndHelp.class);
                 startActivity(intent);
-                //Once pressed on the button2 it triggers ViewHistoryActivity
             }
         });
 
-        Log.v(TAG, "222222222222222$$$$$$$$$$$$$$$");
-        Log.v(TAG, "22 onCreate called: creating database.");
-        Log.v(TAG, "222222222222222$$$$$$$$$$$$$$$");
-        databaseTest dbTest = new databaseTest(this);
-        dbTest.startTest();
+        //end commenting out
+        */
 
+        beaconEventListener = new BeaconEventListener(){
 
+            public void onBeaconSighting(BeaconSighting sighting) {
 
+                listAdapter.add(String.format("sighted beacon %s", sighting.getRSSI()));
+                listAdapter.notifyDataSetChanged();
+            }
+        };
 
+        beaconManager.addListener(beaconEventListener);
+    }//end onCreate method
 
-    }
-
-    void serviceStarted()
-    {
+    void serviceStarted() {
         Toast aTestingMessage = Toast.makeText(getBaseContext(), "Testing message stating that the proximity service has started.", Toast.LENGTH_LONG);
         aTestingMessage.show();
-        // this will be invoked if the service has successfully started
-        // bluetooth scanning will be started at this point
     }
 
-    void serviceFailed(int errorCode, String message)
-    {
-        // this will be called if the service has failed to start
+    // this will be called if the service has failed to start
+    void serviceFailed(int errorCode, String message) {
         Toast aTestingMessage = Toast.makeText(getBaseContext(), "Testing message stating that the proximity service has failed.", Toast.LENGTH_LONG);
         aTestingMessage.show();
     }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 }

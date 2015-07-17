@@ -7,6 +7,8 @@
     android:background="@drawable/md_blueprint_blank">
     <!--android:background="@drawable/cs-blueprint-blank">-->
 
+    <!--
+
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -44,6 +46,20 @@
         android:layout_below="@+id/button3"
         android:layout_centerHorizontal="true"
         android:layout_alignParentEnd="false" />
+
+        -->
+
+    <!-- Begin Testing View -->
+
+    <ListView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/list"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView2" />
+
+    <!-- End Testing View -->
 
     <TextView
         android:layout_width="wrap_content"
