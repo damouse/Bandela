@@ -52,7 +52,7 @@ public class MainActivity extends Activity {
     private ListView listView;
 
     private BeaconEventListener beaconEventListener;
-    private BeaconManager beaconManager = new BeaconManager();
+    private BeaconManager beaconManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,13 +62,14 @@ public class MainActivity extends Activity {
             TESTING start for Gimbal code.
          */
         Gimbal.setApiKey(this.getApplication(), "41238e20-69b3-48f7-b5b5-9648d9ba4dfb"); //"## PLACE YOUR API KEY HERE ##"
-
+        beaconManager = new BeaconManager();
         //Proximity testing code
-        serviceStarted();
+        //serviceStarted();
 
         /*
         Start of first gimbal testing code.
          */
+        /*
         placeEventListener = new PlaceEventListener() {
             @Override
             public void onVisitStart(Visit visit) {
@@ -99,6 +100,7 @@ public class MainActivity extends Activity {
             aTestingMessage.show();
         }
 
+
         CommunicationManager.getInstance().startReceivingCommunications();
 
         beaconSightingListener = new BeaconEventListener(){
@@ -110,11 +112,11 @@ public class MainActivity extends Activity {
             }
         };
         beaconManager = new BeaconManager();
-        beaconManager.addListener(beaconSightingListener);
-        beaconManager.startListening();
+        //beaconManager.addListener(beaconSightingListener);
+        //beaconManager.startListening();
 
         //create buttons in main activity
-
+        */
         /* Commenting out buttons /*
         final Button button1 = (Button) findViewById(R.id.button1);
         button1.setOnClickListener(new View.OnClickListener() {
@@ -162,6 +164,8 @@ public class MainActivity extends Activity {
         };
 
         beaconManager.addListener(beaconEventListener);
+        beaconManager.startListening();
+
     }//end onCreate method
 
     void serviceStarted() {
