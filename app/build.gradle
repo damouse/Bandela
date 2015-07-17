@@ -32,6 +32,7 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar']) // this adds all JARs in the libs folder
-
     compile 'com.android.support:appcompat-v7:22.2.0'
+    //just added this code.
+    compile files('libs/gimbal.jar')
 }
