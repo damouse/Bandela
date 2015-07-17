@@ -62,7 +62,6 @@ public class MainActivity extends Activity {
             TESTING start for Gimbal code.
          */
         Gimbal.setApiKey(this.getApplication(), "41238e20-69b3-48f7-b5b5-9648d9ba4dfb"); //"## PLACE YOUR API KEY HERE ##"
-        beaconManager = new BeaconManager();
         //Proximity testing code
         //serviceStarted();
 
@@ -153,7 +152,14 @@ public class MainActivity extends Activity {
 
         //end commenting out
         */
+        beaconManager = new BeaconManager();
 
+        listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1);
+        listView = (ListView) findViewById(R.id.list);
+        listView.setAdapter(listAdapter);
+
+        listAdapter.add("Hellooooooo");
+        listAdapter.notifyDataSetChanged();
         beaconEventListener = new BeaconEventListener(){
 
             public void onBeaconSighting(BeaconSighting sighting) {
@@ -165,6 +171,24 @@ public class MainActivity extends Activity {
 
         beaconManager.addListener(beaconEventListener);
         beaconManager.startListening();
+
+        placeEventListener = new PlaceEventListener() {
+            @Override
+            public void onVisitStart(Visit visit) {
+                listAdapter.add(String.format("Start Visit for %s", visit.getPlace().getName()));
+                listAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onVisitEnd(Visit visit) {
+                listAdapter.add(String.format("End Visit for %s", visit.getPlace().getName()));
+                listAdapter.notifyDataSetChanged();
+            }
+        };
+
+        placeManager = PlaceManager.getInstance();
+        placeManager.addListener(placeEventListener);
+        placeManager.startMonitoring();
 
     }//end onCreate method
 
