@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Bandela.iml" filepath="$PROJECT_DIR$/Bandela.iml" />
+      <module fileurl="file://$PROJECT_DIR$/BandelaMain.iml" filepath="$PROJECT_DIR$/BandelaMain.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
 </project>
-

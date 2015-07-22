@@ -3,29 +3,9 @@ package wings.bandela;
 import com.gimbal.android.Gimbal;
 import com.gimbal.android.CommunicationManager;
 import com.gimbal.android.CommunicationListener;
-import com.gimbal.android.Communication;
-import com.gimbal.android.Push;
-import com.gimbal.android.PlaceManager;
-import com.gimbal.android.PlaceEventListener;
-import com.gimbal.android.Place;
-import com.gimbal.android.Visit;
 import com.gimbal.android.BeaconEventListener;
 import com.gimbal.android.BeaconManager;
 import com.gimbal.android.BeaconSighting;
-
-import com.gimbal.proximity.ProximityListener;
-import com.gimbal.proximity.ProximityOptions;
-
-/* potentially unwanted imports. These suggested imports were found under a section
-//stating that these imports should be included if using CommunicationListener and
-//CommunicationManager instances.
-
-import java.sql.Date;
-import java.util.Collection;
-import java.util.List;
-import android.util.Log;
-*/
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -35,12 +15,11 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
-    private PlaceManager placeManager;
-    private PlaceEventListener placeEventListener;
     private CommunicationListener communicationListener;
     private BeaconEventListener beaconSightingListener;
     private BeaconManager beaconManager;
@@ -58,95 +37,16 @@ public class MainActivity extends Activity {
         //Proximity testing code
         serviceStarted();
 
-        /*
-        Start of first gimbal testing code.
-         */
-        placeEventListener = new PlaceEventListener() {
-            @Override
-            public void onVisitStart(Visit visit) {
-                Toast aTestingMessage = Toast.makeText(getBaseContext(), String.format("Start Visit for %s", visit.getPlace().getName()), Toast.LENGTH_LONG);
-                aTestingMessage.show();
-            }
-
-            @Override
-            public void onVisitEnd(Visit visit) {
-                Toast aTestingMessage = Toast.makeText(getBaseContext(), String.format("Start Visit for %s", visit.getPlace().getName()), Toast.LENGTH_LONG);
-                aTestingMessage.show();
-            }
-        };
-
-        placeManager = PlaceManager.getInstance();
-        placeManager.addListener(placeEventListener);
-        placeManager.startMonitoring();
-
-        //This code checks to see if monitoring is actually on
-        if(PlaceManager.getInstance().isMonitoring() == true)
-        {
-            Toast aTestingMessage = Toast.makeText(getBaseContext(), "Test message to indicate PlaceManager is Monitoring :)", Toast.LENGTH_LONG);
-            aTestingMessage.show();
-        }
-        else
-        {
-            Toast aTestingMessage = Toast.makeText(getBaseContext(), "Test message to indicate PlaceManager IS NOT Monitoring :(", Toast.LENGTH_LONG);
-            aTestingMessage.show();
-        }
-
-        /*
-        communicationListener = new CommunicationListener() {
-            @Override
-            public Collection<Communication> presentNotificationForCommunications(Collection<Communication> communications, Visit visit) {
-                for (Communication comm : communications) {
-                    Log.i("INFO", "Place Communication: " + visit.getPlace().getName() + ", message: " + comm.getTitle());
-                }
-                //allow Gimbal to show the notification for all communications
-                return communications;
-            }
-
-            @Override
-            public Collection<Communication> presentNotificationForCommunications(Collection<Communication> communications, Push push) {
-                for (Communication comm : communications) {
-                    Log.i("INFO", "Received a Push Communication with message: " + comm.getTitle());
-                }
-                //allow Gimbal to show the notification for all communications
-                return communications;
-            }
-
-            @Override
-            public void onNotificationClicked(List<Communication> communications) {
-                Log.i("INFO", "Notification was clicked on");
-            }
-        };
-        CommunicationManager.getInstance().addListener(communicationListener);
-        */
-
-        CommunicationManager.getInstance().startReceivingCommunications();
-
         beaconSightingListener = new BeaconEventListener() {
             @Override
             public void onBeaconSighting(BeaconSighting sighting) {
-                Toast aTestingMessage = Toast.makeText(getBaseContext(), "Testing message indicating onBeaconSighting method is working", Toast.LENGTH_LONG);
-                aTestingMessage.show();
-                //Log.i("INFO", sighting.toString());
+                Log.v("test", "enter onBeaconSighting");
+                ViewMap.updateLocation(sighting);
             }
         };
         beaconManager = new BeaconManager();
         beaconManager.addListener(beaconSightingListener);
         beaconManager.startListening();
-
-        /*
-        End of first gimbal testing code
-         */
-        /*
-        Start of gimbal testing code that uses the gimbalHelper class.
-         */
-        //gimbalHelper theGimbalHelper = new gimbalHelper();
-        //theGimbalHelper.addBeacon("beacon 1", "You have detected the beacon : beacon 1");
-        //theGimbalHelper.addBeacon("beacon 2", "You have detected the beacon : beacon 2");
-        //theGimbalHelper.addPlace("You have entered the place \"beacon 1\"!", "You have left the place \"beacon 1\"!", "beacon 1");
-        /*
-            TESTING finished for Gimbal code.
-         */
-
 
         final Button button1 = (Button) findViewById(R.id.button1);
         button1.setOnClickListener( new View.OnClickListener() {
@@ -185,29 +85,15 @@ public class MainActivity extends Activity {
             }
         });
 
-        Log.v(TAG, "222222222222222$$$$$$$$$$$$$$$");
-        Log.v(TAG, "22 onCreate called: creating database.");
-        Log.v(TAG, "222222222222222$$$$$$$$$$$$$$$");
-        databaseTest dbTest = new databaseTest(this);
-        dbTest.startTest();
+        CommunicationManager.getInstance().startReceivingCommunications();
 
+    }//end onCreate method
 
+    //start proximity service
+    void serviceStarted(){}
 
-
-
-    }
-
-    void serviceStarted()
-    {
-        Toast aTestingMessage = Toast.makeText(getBaseContext(), "Testing message stating that the proximity service has started.", Toast.LENGTH_LONG);
-        aTestingMessage.show();
-        // this will be invoked if the service has successfully started
-        // bluetooth scanning will be started at this point
-    }
-
-    void serviceFailed(int errorCode, String message)
-    {
-        // this will be called if the service has failed to start
+    // this will be called if the service has failed to start
+    void serviceFailed(int errorCode, String message) {
         Toast aTestingMessage = Toast.makeText(getBaseContext(), "Testing message stating that the proximity service has failed.", Toast.LENGTH_LONG);
         aTestingMessage.show();
     }

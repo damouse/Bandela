@@ -2,6 +2,20 @@
 <items version="2" >
 
     <item
+        jar="C:\Users\Owner\Documents\AndroidStudio\BandelaMain\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.0\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="1ee588ff2c4daf7b97c1cbf922a6c7f027285c2f">
+        <dex dex="C:\Users\Owner\Documents\AndroidStudio\BandelaMain\app\build\intermediates\pre-dexed\debug\classes-57b9e1145d2e325ff4ca2235cd11153a16f2ef0e.jar" />
+    </item>
+    <item
+        jar="C:\Users\Owner\Documents\AndroidStudio\BandelaMain\app\libs\gimbal-dev-logging.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="44cd8bfb75e931f3a58b15f9ae51603a33fc116c">
+        <dex dex="C:\Users\Owner\Documents\AndroidStudio\BandelaMain\app\build\intermediates\pre-dexed\debug\gimbal-dev-logging-4aa7711dad6f654e4e37798010a94716bef1dff0.jar" />
+    </item>
+    <item
         jar="C:\Users\Owner\Documents\AndroidStudio\BandelaLuke\app\libs\spring-android-rest-template-1.0.1.RELEASE.jar"
         jumboMode="false"
         revision="21.1.2"
@@ -14,6 +28,13 @@
         revision="21.1.2"
         sha1="44cd8bfb75e931f3a58b15f9ae51603a33fc116c">
         <dex dex="C:\Users\Owner\Documents\AndroidStudio\BandelaLuke\app\build\intermediates\pre-dexed\debug\gimbal-dev-logging-e9a5b2cb30bae0d897377482b490dacb2b5299bd.jar" />
+    </item>
+    <item
+        jar="C:\Users\Owner\Documents\AndroidStudio\BandelaMain\app\libs\gimbal.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="d7ac4b59b017b30334e363675e38a64c0cbbbef6">
+        <dex dex="C:\Users\Owner\Documents\AndroidStudio\BandelaMain\app\build\intermediates\pre-dexed\debug\gimbal-1d2bb862f34abc09415af98d0693cd32ad6781c8.jar" />
     </item>
     <item
         jar="C:\Users\Owner\Documents\AndroidStudio\BandelaLuke\app\libs\spring-android-core-1.0.1.RELEASE.jar"
@@ -37,6 +58,13 @@
         <dex dex="C:\Users\Owner\Documents\AndroidStudio\BandelaLuke\app\build\intermediates\pre-dexed\debug\classes-00aecc222d97753a6d10944403e9778fe21d408e.jar" />
     </item>
     <item
+        jar="C:\Users\Owner\Documents\AndroidStudio\BandelaMain\app\libs\spring-android-core-1.0.1.RELEASE.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="e68f0e8e4b636ee30c4de58953be38d9b72a5e3b">
+        <dex dex="C:\Users\Owner\Documents\AndroidStudio\BandelaMain\app\build\intermediates\pre-dexed\debug\spring-android-core-1.0.1.RELEASE-56a25d5c73aa3ba1110ccf77faaf683503b89606.jar" />
+    </item>
+    <item
         jar="C:\Users\Owner\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\22.2.0\support-annotations-22.2.0.jar"
         jumboMode="false"
         revision="21.1.2"
@@ -44,11 +72,32 @@
         <dex dex="C:\Users\Owner\Documents\AndroidStudio\BandelaLuke\app\build\intermediates\pre-dexed\debug\support-annotations-22.2.0-ffc4c4adc1a6a273d902dc03770a7aa81310849c.jar" />
     </item>
     <item
+        jar="C:\Users\Owner\Documents\AndroidStudio\BandelaMain\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.0\libs\internal_impl-22.2.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="57f2ab85c164ff1676ec64dee787981c046fab79">
+        <dex dex="C:\Users\Owner\Documents\AndroidStudio\BandelaMain\app\build\intermediates\pre-dexed\debug\internal_impl-22.2.0-3485ef5cfb532bba3907f2611d9b6a06c68617ec.jar" />
+    </item>
+    <item
+        jar="C:\Users\Owner\Documents\AndroidStudio\BandelaMain\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\22.2.0\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="73753982da6bde518f3a4c6b372749981d14d1a0">
+        <dex dex="C:\Users\Owner\Documents\AndroidStudio\BandelaMain\app\build\intermediates\pre-dexed\debug\classes-c544f2bdff87cdb418e5e52efa88da872f38aee9.jar" />
+    </item>
+    <item
         jar="C:\Users\Owner\Documents\AndroidStudio\BandelaLuke\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.0\classes.jar"
         jumboMode="false"
         revision="21.1.2"
         sha1="1ee588ff2c4daf7b97c1cbf922a6c7f027285c2f">
         <dex dex="C:\Users\Owner\Documents\AndroidStudio\BandelaLuke\app\build\intermediates\pre-dexed\debug\classes-17b3a5323a0a797b824b17393dfa01ce8b5509ee.jar" />
+    </item>
+    <item
+        jar="C:\Users\Owner\Documents\AndroidStudio\BandelaMain\app\libs\spring-android-rest-template-1.0.1.RELEASE.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="e132d929bd181941f79b0d63edafb8a86ae6fd33">
+        <dex dex="C:\Users\Owner\Documents\AndroidStudio\BandelaMain\app\build\intermediates\pre-dexed\debug\spring-android-rest-template-1.0.1.RELEASE-ca12d4adc1b8298c1a6628ee53091120db4b0c05.jar" />
     </item>
     <item
         jar="C:\Users\Owner\Documents\AndroidStudio\BandelaLuke\app\libs\gimbal.jar"
