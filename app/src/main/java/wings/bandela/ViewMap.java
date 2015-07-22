@@ -32,12 +32,12 @@ public class ViewMap extends Activity {
     private static int rssi1, rssi2, rssi3, rssi4, rssi5, minRSSI;
     private static final int CUTOFF = 60;
 
-    private static RelativeLayout layout;
+    //private static RelativeLayout layout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        layout = (RelativeLayout)findViewById(R.id.mapView);
+        //layout = (RelativeLayout)findViewById(R.id.mapView);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_map);
@@ -102,19 +102,19 @@ public class ViewMap extends Activity {
         if((rssi1 | rssi2 | rssi3 | rssi4 | rssi5) != 0){
             //rssi1 is closest
             if(rssi1 != 0 && rssi1 < CUTOFF){
-                layout.setBackgroundResource(R.drawable.blueprint);
+                //layout.setBackgroundResource(R.drawable.blueprint);
                 beaconDetectorTextView.setText(String.format("Beacon 1 loudest, has RSSI %d", sighting.getRSSI()));
             } else if(rssi2 != 0 && rssi2 < CUTOFF){
-                layout.setBackgroundResource(R.drawable.blueprint);
+                //layout.setBackgroundResource(R.drawable.blueprint);
                 beaconDetectorTextView.setText(String.format("Beacon 2 loudest, has RSSI %d", sighting.getRSSI()));
             } else if(rssi3 != 0 && rssi3 < CUTOFF){
-                layout.setBackgroundResource(R.drawable.blueprint);
+                //layout.setBackgroundResource(R.drawable.blueprint);
                 beaconDetectorTextView.setText(String.format("Beacon 3 loudest, has RSSI %d", sighting.getRSSI()));
             } else if(rssi4 != 0 && rssi4 < CUTOFF){
-                layout.setBackgroundResource(R.drawable.blueprint);
+                //layout.setBackgroundResource(R.drawable.blueprint);
                 beaconDetectorTextView.setText(String.format("Beacon 4 loudest, has RSSI %d", sighting.getRSSI()));
             } else if(rssi5 != 0 && rssi5 < CUTOFF){
-                layout.setBackgroundResource(R.drawable.blueprint);
+                //layout.setBackgroundResource(R.drawable.blueprint);
                 beaconDetectorTextView.setText(String.format("Beacon 5 loudest, has RSSI %d", sighting.getRSSI()));
             }
         }
