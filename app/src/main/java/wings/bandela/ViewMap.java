@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 import com.gimbal.android.BeaconEventListener;
 import com.gimbal.android.BeaconSighting;
 import com.gimbal.android.BeaconManager;
+import com.gimbal.android.CommunicationListener;
 import com.gimbal.android.CommunicationManager;
 import com.gimbal.android.Gimbal;
 import com.gimbal.android.PlaceEventListener;
@@ -25,9 +27,12 @@ import java.util.List;
 
 public class ViewMap extends Activity {
 
+    private CommunicationListener communicationListener;
+    private BeaconEventListener beaconSightingListener;
+    private BeaconManager beaconManager;
+
     static TextView beaconDetectorTextView;
-    static BeaconEventListener beaconEventListener;
-    BeaconManager beaconManager;
+
 
     private static int rssi1, rssi2, rssi3, rssi4, rssi5, minRSSI;
     private static final int CUTOFF = 60;
@@ -42,23 +47,66 @@ public class ViewMap extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_map);
 
+
+        Gimbal.setApiKey(this.getApplication(), "41238e20-69b3-48f7-b5b5-9648d9ba4dfb"); //"## PLACE YOUR API KEY HERE ##"
+
+        beaconSightingListener = new BeaconEventListener() {
+            @Override
+            public void onBeaconSighting(BeaconSighting sighting) {
+                Log.v("test", "enter onBeaconSighting");
+                if(sighting.getBeacon().getName().equals("beacon 1")) {
+                    rssi1 = Math.abs(sighting.getRSSI());
+                }else if(sighting.getBeacon().getName().equals("beacon 2")) {
+                    rssi2 = Math.abs(sighting.getRSSI());
+                }else if(sighting.getBeacon().getName().equals("beacon 3")) {
+                    rssi3 = Math.abs(sighting.getRSSI());
+                }else if(sighting.getBeacon().getName().equals("beacon 4")) {
+                    rssi4 = Math.abs(sighting.getRSSI());
+                }else if(sighting.getBeacon().getName().equals("beacon 5")) {
+                    rssi5 = Math.abs(sighting.getRSSI());
+                }
+
+                //if one beacon is not zero find minimum
+                if((rssi1 | rssi2 | rssi3 | rssi4 | rssi5) != 0){
+                    //rssi1 is closest
+                    if(rssi1 != 0 && rssi1 < CUTOFF){
+
+                        RelativeLayout mainLayout=(RelativeLayout)findViewById(R.id.mapView);
+                        mainLayout.setBackgroundResource(R.drawable.highlight1);
+                        beaconDetectorTextView.setText(String.format("Beacon 1 loudest, has RSSI %d", sighting.getRSSI()));
+                    } else if(rssi2 != 0 && rssi2 < CUTOFF){
+                        RelativeLayout mainLayout=(RelativeLayout)findViewById(R.id.mapView);
+                        mainLayout.setBackgroundResource(R.drawable.highlight2);
+                        beaconDetectorTextView.setText(String.format("Beacon 2 loudest, has RSSI %d", sighting.getRSSI()));
+                    } else if(rssi3 != 0 && rssi3 < CUTOFF){
+                        RelativeLayout mainLayout=(RelativeLayout)findViewById(R.id.mapView);
+                        mainLayout.setBackgroundResource(R.drawable.highlight3);
+                        beaconDetectorTextView.setText(String.format("Beacon 3 loudest, has RSSI %d", sighting.getRSSI()));
+                    } else if(rssi4 != 0 && rssi4 < CUTOFF){
+                        RelativeLayout mainLayout=(RelativeLayout)findViewById(R.id.mapView);
+                        mainLayout.setBackgroundResource(R.drawable.highlight4);
+                        beaconDetectorTextView.setText(String.format("Beacon 4 loudest, has RSSI %d", sighting.getRSSI()));
+                    } else if(rssi5 != 0 && rssi5 < CUTOFF){
+                        //layout.setBackgroundResource(R.drawable.blueprint);
+                        beaconDetectorTextView.setText(String.format("Beacon 5 loudest, has RSSI %d", sighting.getRSSI()));
+                    }
+                }
+            }
+        };
+        beaconManager = new BeaconManager();
+        beaconManager.addListener(beaconSightingListener);
+        beaconManager.startListening();
+
+        CommunicationManager.getInstance().startReceivingCommunications();
+
         rssi1 = 0;
         rssi2 = 0;
         rssi3 = 0;
         rssi4 = 0;
         rssi5 = 0;
 
-        Gimbal.setApiKey(this.getApplication(), "41238e20-69b3-48f7-b5b5-9648d9ba4dfb"); //"## PLACE YOUR API KEY HERE ##"
-
         beaconDetectorTextView = (TextView) findViewById(R.id.beaconDetectorTextView);
-        beaconDetectorTextView.setText("The Beacon info should be here.");
-
-        beaconManager = new BeaconManager();
-
-        beaconManager.addListener(beaconEventListener);
-        beaconManager.startListening();
-
-        CommunicationManager.getInstance().startReceivingCommunications();
+        beaconDetectorTextView.setText("Initializing...");
     }
 
 
@@ -82,42 +130,5 @@ public class ViewMap extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    //change stated location based on beacon sighting model
-    public static void updateLocation(BeaconSighting sighting){
-        if(sighting.getBeacon().getName().equals("beacon 1")) {
-            rssi1 = Math.abs(sighting.getRSSI());
-        }else if(sighting.getBeacon().getName().equals("beacon 2")) {
-            rssi2 = Math.abs(sighting.getRSSI());
-        }else if(sighting.getBeacon().getName().equals("beacon 3")) {
-            rssi3 = Math.abs(sighting.getRSSI());
-        }else if(sighting.getBeacon().getName().equals("beacon 4")) {
-            rssi4 = Math.abs(sighting.getRSSI());
-        }else if(sighting.getBeacon().getName().equals("beacon 5")) {
-            rssi5 = Math.abs(sighting.getRSSI());
-        }
-
-        //if one beacon is not zero find minimum
-        if((rssi1 | rssi2 | rssi3 | rssi4 | rssi5) != 0){
-            //rssi1 is closest
-            if(rssi1 != 0 && rssi1 < CUTOFF){
-                //layout.setBackgroundResource(R.drawable.blueprint);
-                beaconDetectorTextView.setText(String.format("Beacon 1 loudest, has RSSI %d", sighting.getRSSI()));
-            } else if(rssi2 != 0 && rssi2 < CUTOFF){
-                //layout.setBackgroundResource(R.drawable.blueprint);
-                beaconDetectorTextView.setText(String.format("Beacon 2 loudest, has RSSI %d", sighting.getRSSI()));
-            } else if(rssi3 != 0 && rssi3 < CUTOFF){
-                //layout.setBackgroundResource(R.drawable.blueprint);
-                beaconDetectorTextView.setText(String.format("Beacon 3 loudest, has RSSI %d", sighting.getRSSI()));
-            } else if(rssi4 != 0 && rssi4 < CUTOFF){
-                //layout.setBackgroundResource(R.drawable.blueprint);
-                beaconDetectorTextView.setText(String.format("Beacon 4 loudest, has RSSI %d", sighting.getRSSI()));
-            } else if(rssi5 != 0 && rssi5 < CUTOFF){
-                //layout.setBackgroundResource(R.drawable.blueprint);
-                beaconDetectorTextView.setText(String.format("Beacon 5 loudest, has RSSI %d", sighting.getRSSI()));
-            }
-        }
-
     }
 }

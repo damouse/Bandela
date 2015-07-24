@@ -19,10 +19,6 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
-
-    private CommunicationListener communicationListener;
-    private BeaconEventListener beaconSightingListener;
-    private BeaconManager beaconManager;
     private static final String TAG = "MyActivity";
 
     @Override
@@ -32,21 +28,9 @@ public class MainActivity extends Activity {
         /*
             TESTING start for Gimbal code.
          */
-        Gimbal.setApiKey(this.getApplication(), "41238e20-69b3-48f7-b5b5-9648d9ba4dfb"); //"## PLACE YOUR API KEY HERE ##"
 
         //Proximity testing code
         serviceStarted();
-
-        beaconSightingListener = new BeaconEventListener() {
-            @Override
-            public void onBeaconSighting(BeaconSighting sighting) {
-                Log.v("test", "enter onBeaconSighting");
-                ViewMap.updateLocation(sighting);
-            }
-        };
-        beaconManager = new BeaconManager();
-        beaconManager.addListener(beaconSightingListener);
-        beaconManager.startListening();
 
         final Button button1 = (Button) findViewById(R.id.button1);
         button1.setOnClickListener( new View.OnClickListener() {
@@ -84,8 +68,6 @@ public class MainActivity extends Activity {
                 //Once pressed on the button2 it triggers ViewHistoryActivity
             }
         });
-
-        CommunicationManager.getInstance().startReceivingCommunications();
 
     }//end onCreate method
 
