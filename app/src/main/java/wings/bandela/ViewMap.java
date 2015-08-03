@@ -35,7 +35,7 @@ public class ViewMap extends Activity {
 
 
     private static int rssi1, rssi2, rssi3, rssi4, rssi5, minRSSI;
-    private static final int CUTOFF = 60;
+    private static final int CUTOFF = 70;
 
     //private static RelativeLayout layout;
 
